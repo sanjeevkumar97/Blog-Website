@@ -15,11 +15,11 @@ const Blog=require('./modles/blog');
 mongoose.connect(process.env.MONGO_URL).then((e)=>console.log("mongoDB connected"));
 
 app.set('view engine','ejs');
-app.set("views",path.resolve("./views"));
+app.set("views",path.join(__dirname,"views"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
-app.use(express.static(path.resolve("./public")));
+app.use(express.static(path.join(__dirname,"public")));
 
 app.use(checkForAuthenticationCookie("token"));
 app.use('/user',userRoute);
@@ -34,5 +34,8 @@ app.get("/",async(req,res)=>{
 })
 
 
-app.listen(PORT,()=>console.log(`server started at PORT${PORT} `));
+if (require.main === module) {
+    app.listen(PORT,()=>console.log(`server started at PORT${PORT} `));
+}
 
+module.exports = app;
