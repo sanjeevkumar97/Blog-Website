@@ -13,6 +13,11 @@ const commentSchema=new Schema({
         type:String,
         required:false,
     },
+    coverImageId:{
+        type:Schema.Types.ObjectId,
+        ref:"blogImage",
+        required:false,
+    },
     createdBy:{
         type:Schema.Types.ObjectId,
         ref:"user",
